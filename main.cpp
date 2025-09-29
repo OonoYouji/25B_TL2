@@ -1,16 +1,34 @@
+
+/// std
 #include <cstdio>
 #include <cstdlib>
+#include <cassert>
 
+/// externals
+#include "External/DirectXTex/DirectXTex.h"
+
+/// engine
+#include "Project/Converter/TextureConverter.h"
+
+enum Argument {
+	kApplicationPath,
+	kFilePath,
+	NumArgument
+};
 
 int main(int _argc, char* _argv[]) {
 
-	for (size_t i = 0; i < _argc; i++) {
-		printf(_argv[i]);
-		printf("\n");
-	}
+	assert(_argc >= NumArgument);
+
+	HRESULT hr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+	assert(SUCCEEDED(hr));
+
+	TextureConverter converter;
+	converter.ConvertTextureWICToDDS(_argv[kFilePath]);
+
+	CoUninitialize();
 
 	system("pause");
-
 	return 0;
 }
 
