@@ -1,22 +1,12 @@
-#include <stdio.h>
-
+#include <cstdio>
+#include <cstdlib>
 
 
 int main() {
 
-	///
-	/// «•Ï”‚ÌéŒ¾
-	///
+	printf("Hello, World!\n");
+	system("pause");
 
-
-	///
-	/// ª•Ï”‚ÌéŒ¾
-	///
-	
-
-
-	
-	
 	return 0;
 }
 
