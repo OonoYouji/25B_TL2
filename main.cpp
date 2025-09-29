@@ -2,9 +2,13 @@
 #include <cstdlib>
 
 
-int main() {
+int main(int _argc, char* _argv[]) {
 
-	printf("Hello, World!\n");
+	for (size_t i = 0; i < _argc; i++) {
+		printf(_argv[i]);
+		printf("\n");
+	}
+
 	system("pause");
 
 	return 0;
