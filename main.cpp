@@ -28,7 +28,7 @@ int main(int _argc, char* _argv[]) {
 
 	CoUninitialize();
 
-	system("pause");
+	//system("pause");
 	return 0;
 }
 
