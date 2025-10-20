@@ -14,7 +14,10 @@ public:
 	/// public : methods
 	/// ====================================================
 
-	void ConvertTextureWICToDDS(const std::string& _filepath);
+	/// @brief 使用方法を出力する
+	static void OutputUsage();
+
+	void ConvertTextureWICToDDS(const std::string& _filepath, int _numOptions = 0, char* _options[] = nullptr);
 	void LoadWICTextureFromFile(const std::string& _filepath);
 	void SeparateFilePath(const std::wstring& _filepath);
 
@@ -25,7 +28,7 @@ private:
 
 	static std::wstring ConvertMultiByteStringToWideString(const std::string& _mString);
 
-	void SaveDDSTextureToFile();
+	void SaveDDSTextureToFile(int _numOptions, char* _options[]);
 
 private:
 	/// ====================================================

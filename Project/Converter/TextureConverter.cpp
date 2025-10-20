@@ -6,9 +6,21 @@
 
 
 
-void TextureConverter::ConvertTextureWICToDDS(const std::string& _filepath) {
+void TextureConverter::OutputUsage() {
+	printf("画像ファイルをWIC形式からDDS形式に変換します。\n");
+	printf("\n");
+	printf("TextureConverter.exe [ドライブ:][パス][ファイル名]\n");
+	printf("\n");
+	printf(" [ドライブ:][パス][ファイル名]: 変換したいWIC形式の画像ファイルを指定します。 \n");
+
+	/// -ml オプションの説明
+	printf(" -ml [mipレベル数]: 生成するMipMapのレベル数を指定します。\n");
+
+}
+
+void TextureConverter::ConvertTextureWICToDDS(const std::string& _filepath, int _numOptions, char* _options[]) {
 	LoadWICTextureFromFile(_filepath);
-	SaveDDSTextureToFile();
+	SaveDDSTextureToFile(_numOptions, _options);
 }
 
 void TextureConverter::LoadWICTextureFromFile(const std::string& _filepath) {
@@ -79,7 +91,16 @@ std::wstring TextureConverter::ConvertMultiByteStringToWideString(const std::str
 	return result;
 }
 
-void TextureConverter::SaveDDSTextureToFile() {
+void TextureConverter::SaveDDSTextureToFile(int _numOptions, char* _options[]) {
+
+	size_t mipLevel = 0;
+	for (int i = 0; i < _numOptions; i++) {
+		if(std::string(_options[i]) == "-ml") {
+			/// mip levelを指定
+			mipLevel = std::stoi(_options[i + 1]);
+			break;
+		}
+	}
 
 	/// MipMapを生成
 	DirectX::ScratchImage mipChain;
@@ -88,7 +109,7 @@ void TextureConverter::SaveDDSTextureToFile() {
 		scratchImage_.GetImageCount(),
 		scratchImage_.GetMetadata(),
 		DirectX::TEX_FILTER_DEFAULT,
-		0, mipChain
+		mipLevel, mipChain
 	);
 
 	if (SUCCEEDED(hr)) {
